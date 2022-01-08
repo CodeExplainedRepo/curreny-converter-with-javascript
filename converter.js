@@ -25,7 +25,7 @@ const DEFAULT_BASE_CURRENCY_CODE = 'USD';
 const DATA_PRECISION = 2;
 let exchangeRate;
 let currenciesList;
-let MODE = 'eco-mode';
+let ECO_MODE = true;
 
 // API PROVIDERS
 const ipdata = {
@@ -141,13 +141,13 @@ t_select.addEventListener('change', async () => {
   convert('to->from');
 });
 f_input.addEventListener('input', async () => {
-  if (MODE !== 'eco-mode') {
+  if (!ECO_MODE) {
     exchangeRate = await getExchangeRate(fromCurrencyCode(), toCurrencyCode());
   }
   convert('from->to');
 });
 t_input.addEventListener('input', async () => {
-  if (MODE !== 'eco-mode') {
+  if (!ECO_MODE) {
     exchangeRate = await getExchangeRate(fromCurrencyCode(), toCurrencyCode());
   }
   convert('to->from');
