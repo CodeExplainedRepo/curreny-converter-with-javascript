@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Currency Converter</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="currency-converter">
+        <div class="title">
+          <img src="./images/exchange.png" />
+          <h1>Currency Converter</h1>
+        </div>
+        <div class="exchange-rate">
+          <p>1 United States Dollar equals</p>
+          <h1>9.28 Moroccan dirhams</h1>
+        </div>
+        <div class="from-currency">
+          <input type="number" id="from-currency-amount" value="1" />
+          <select>
+            <option>USD - United States Dollar</option>
+          </select>
+        </div>
+        <div class="to-currency">
+          <input type="number" id="to-currency-amount" />
+          <select>
+            <option>USD - United States Dollar American Morocco</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <script src="./converter.js"></script>
+  </body>
+</html>
