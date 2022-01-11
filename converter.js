@@ -31,6 +31,10 @@ let ECO_MODE = true;
 const ipdata = {
   baseurl: 'https://api.ipdata.co',
   key: '13952c49cd907f6b9a168b62b0b2364ba3eb022e303cd6aec6afb8cd',
+
+  currency: function () {
+    return `${this.baseurl}/currency?api-key=${ipdata.key}`;
+  },
 };
 const currencyLayer = {
   baseurl: 'http://api.currencylayer.com',
@@ -55,13 +59,8 @@ async function getCurrenciesList() {
 
 // GET USER'S LOCAL CURRENCY
 async function getUserCurrency() {
-  // get user's IP address
-  const res1 = await fetch(`${ipdata.baseurl}/ip?api-key=${ipdata.key}`);
-  const ip = await res1.text();
-
-  // use user's IP address to get its local currency
-  const res2 = await fetch(`${ipdata.baseurl}/${ip}/currency?api-key=${ipdata.key}`);
-  const currency = await res2.json();
+  const response = await fetch(ipdata.currency());
+  const currency = await response.json();
 
   return {
     name: currency.name,
@@ -87,7 +86,6 @@ async function getExchangeRate(fromCurrencyCode, toCurrencyCode) {
   const amount = 1;
 
   const response = await fetch(currencyLayer.convert(fromCurrencyCode, toCurrencyCode, amount));
-  console.log('API CALL');
   const data = await response.json();
   const rate = data.result;
 
@@ -98,7 +96,7 @@ async function getExchangeRate(fromCurrencyCode, toCurrencyCode) {
 async function renderExchangeRate(fromCurrencyCode, toCurrencyCode) {
   exchangeRate = await getExchangeRate(fromCurrencyCode, toCurrencyCode);
 
-  plural = exchangeRate > 1 ? 's' : '';
+  plural = exchangeRate === 1 ? 's' : '';
 
   exchangeRateEl.innerHTML = `<p>1 ${currenciesList[fromCurrencyCode]} equals</p>
   <h1>${exchangeRate.toFixed(DATA_PRECISION)} ${currenciesList[toCurrencyCode]}${plural}</h1>`;
